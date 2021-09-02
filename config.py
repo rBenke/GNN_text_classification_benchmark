@@ -1,0 +1,11 @@
+import logging
+
+EXP_VERSION = "googleW2V300_1"
+W2V_VERSION = 'word2vec-google-news-300'
+USE_GPU = True
+TF_FIT_VERBOSE = 2
+LOGGING_LEVEL = logging.INFO
+CV_FOLDS = 10
+BATCH_SIZE = 64
+VALIDATION_SIZE=0.1
+EARLY_STOPPING = 10

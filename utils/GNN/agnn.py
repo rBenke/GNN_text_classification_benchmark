@@ -1,32 +1,35 @@
-from stellargraph.layer import GCNSupervisedGraphClassification
-from stellargraph.mapper import PaddedGraphGenerator
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Dropout
+from spektral.layers import GCNConv, GlobalSumPool
 
-from tensorflow.keras import Model
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.losses import categorical_crossentropy
 from utils.GNN.gnn import GNN
 
 
 class GCN(GNN):
-    def __init__(self, generator: PaddedGraphGenerator, nCategories: int):
-        super().__init__(generator, nCategories)
+    def __init__(self, nCategories: int):
+        super().__init__(nCategories)
         self.model = self.create_graph_classification_model()
 
     def create_graph_classification_model(self):
-        gc_model = GCNSupervisedGraphClassification(
-            layer_sizes=[16, 16],
-            activations=["relu", "relu"],
-            generator=self.generator,
-            dropout=0.4,
-        )
-        x_inp, x_out = gc_model.in_out_tensors()
-        predictions = Dense(units=32, activation="relu")(x_out)
-        predictions = Dense(units=self.nCategories, activation="softmax")(predictions)
+        class GCN_model(Model):
+            def __init__(self, n_hidden, n_labels):
+                super().__init__()
+                self.graph_conv = GCNConv(n_hidden)
+                self.pool = GlobalSumPool()
+                self.dropout = Dropout(0.5)
+                self.dense = Dense(n_labels, 'softmax')
+
+            def call(self, inputs):
+                out = self.graph_conv(inputs)
+                out = self.dropout(out)
+                out = self.pool(out)
+                out = self.dense(out)
+
+                return out
 
         # Let's create the Keras model and prepare it for training
-        model = Model(inputs=x_inp, outputs=predictions)
-        model.compile(optimizer=Adam(0.005), loss=categorical_crossentropy, metrics=["acc"])
+        model = GCN_model(256, self.nCategories)
+        model.compile('adam', 'categorical_crossentropy', metrics=["acc"])
 
         return model
 

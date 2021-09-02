@@ -1,6 +1,7 @@
 from typing import List
 import pandas as pd
 import numpy as np
+from config import W2V_VERSION
 def tf_idf():
     raise NotImplementedError
 
@@ -28,12 +29,13 @@ class Word2vec:
         # -- feature matrix
         import gensim.downloader
         # Load vectors directly from the file
-        self.model = gensim.downloader.load('glove-twitter-25')
+        self.model = gensim.downloader.load(W2V_VERSION)
         # >>> print(list(gensim.downloader.info()['models'].keys()))
         # >>> ['fasttext-wiki-news-subwords-300',
         #  'conceptnet-numberbatch-17-06-300',
         #  'word2vec-ruscorpora-300',
         #  'word2vec-google-news-300',
+        #  'glove-twitter-25'
         #  'glove-wiki-gigaword-50',
         #  'glove-wiki-gigaword-100',
         #  'glove-wiki-gigaword-200',
