@@ -105,8 +105,8 @@ def print_results(folder):
     print(results_grouped_df.to_markdown())
     return results_grouped_df
 
-# 20newsgroups : 0.78
-# bbc : 0.976
-# bbcsport: 0.992
-# ohsumed: 0.45
-# reuters: 0.737
+# reuters:          0.737
+# ohsumed:          0.45
+# 20newsgroups :    0.781
+# bbc :             0.976
+# bbcsport:         0.999

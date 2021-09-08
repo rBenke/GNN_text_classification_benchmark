@@ -2,7 +2,7 @@ import time
 
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout
-from spektral.layers import APPNPConv, GlobalSumPool
+from spektral.layers import APPNPConv, GlobalSumPool, GlobalAttnSumPool, GlobalAttentionPool, SortPool
 from spektral.utils import gcn_filter
 from utils.GNN.gnn import GNN
 
@@ -32,6 +32,27 @@ class APPNP_model(Model):
                 ("x_only", Dense(128, activation= 'relu')),
                 ("x_only", Dropout(0.2)),
                 ("x_only", Dense(n_labels, activation= 'softmax'))
+            ]
+        elif type == 3:
+            self.all_layers = [
+                ("with_adj", APPNPConv(256, activation= "relu", mlp_hidden = [512, 256], dropout_rate=0.6)),
+                ("with_graphId", GlobalAttnSumPool()),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 4:
+            self.all_layers = [
+                ("with_adj", APPNPConv(256, activation= "relu", mlp_hidden = [512, 256], dropout_rate=0.6)),
+                ("with_graphId", GlobalAttentionPool(200)),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 5:
+            self.all_layers = [
+                ("with_adj", APPNPConv(256, activation= "relu", mlp_hidden = [512, 256], dropout_rate=0.6)),
+                ("with_graphId", SortPool(5)),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(n_labels, 'softmax'))
             ]
         else:
             raise ValueError("Type has to be one of [0, 1, 2].")

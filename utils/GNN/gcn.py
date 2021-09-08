@@ -1,6 +1,6 @@
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout
-from spektral.layers import GCNConv, GlobalSumPool
+from spektral.layers import GCNConv, GlobalSumPool, GlobalAttentionPool, GlobalAttnSumPool, SortPool
 from spektral.utils import gcn_filter
 from utils.GNN.gnn import GNN
 
@@ -23,6 +23,97 @@ class GCN_model(Model):
                 ("x_only", Dropout(0.4)),
                 ("x_only", Dense(64, 'relu')),
                 ("x_only", Dropout(0.2)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 2:
+            self.all_layers = [
+                ("with_adj", GCNConv(1024, "relu")),
+                ("x_only", Dropout(0.6)),
+                ("with_adj", GCNConv(512, "relu")),
+                ("with_graphId", GlobalSumPool()),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(512, 'relu')),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(256, 'relu')),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 3:
+            self.all_layers = [
+                ("with_adj", GCNConv(1024, "relu")),
+                ("x_only", Dropout(0.6)),
+                ("with_adj", GCNConv(512, "relu")),
+                ("x_only", Dropout(0.6)),
+                ("with_adj", GCNConv(512, "relu")),
+                ("with_graphId", GlobalSumPool()),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(512, 'relu')),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(256, 'relu')),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 4:
+            self.all_layers = [
+                ("with_adj", GCNConv(1024, "relu")),
+                ("x_only", Dropout(0.6)),
+                ("with_adj", GCNConv(512, "relu")),
+                ("x_only", Dropout(0.6)),
+                ("with_adj", GCNConv(512, "relu")),
+                ("with_graphId", GlobalAttnSumPool()),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(512, 'relu')),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(256, 'relu')),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 5:
+            self.all_layers = [
+                ("with_adj", GCNConv(1024, "relu")),
+                ("x_only", Dropout(0.6)),
+                ("with_adj", GCNConv(512, "relu")),
+                ("x_only", Dropout(0.6)),
+                ("with_adj", GCNConv(512, "relu")),
+                ("with_graphId", GlobalAttentionPool(512)),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(512, 'relu')),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(256, 'relu')),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 6:
+            self.all_layers = [
+                ("with_adj", GCNConv(256, "relu")),
+                ("x_only", Dropout(0.4)),
+                ("with_adj", GCNConv(128, "relu")),
+                ("with_graphId", GlobalAttnSumPool()),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(64, 'relu')),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 7:
+            self.all_layers = [
+                ("with_adj", GCNConv(256, "relu")),
+                ("x_only", Dropout(0.4)),
+                ("with_adj", GCNConv(128, "relu")),
+                ("with_graphId", GlobalAttentionPool(128)),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(64, 'relu')),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 8:
+            self.all_layers = [
+                ("with_adj", GCNConv(256, "relu")),
+                ("x_only", Dropout(0.4)),
+                ("with_adj", GCNConv(128, "relu")),
+                ("with_graphId", SortPool(5)),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(64, 'relu')),
+                ("x_only", Dropout(0.4)),
                 ("x_only", Dense(n_labels, 'softmax'))
             ]
         else:

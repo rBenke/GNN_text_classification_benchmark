@@ -2,7 +2,7 @@ import time
 
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Dropout
-from spektral.layers import GATConv, GlobalSumPool
+from spektral.layers import GATConv, GlobalSumPool, GlobalAttnSumPool, GlobalAttentionPool, SortPool
 from utils.GNN.gnn import GNN
 
 
@@ -30,6 +30,45 @@ class GAT_model(Model):
                 ("x_only", Dropout(0.4)),
                 ("x_only", Dense(64, 'relu')),
                 ("x_only", Dropout(0.2)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 3:
+            self.all_layers = [
+                ("with_adj", GATConv(512, attn_heads=4, activation =  "relu")),
+                ("x_only", Dropout(0.6)),
+                ("with_adj", GATConv(256, attn_heads=4, activation =  "relu")),
+                ("with_graphId", GlobalAttnSumPool()),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(128, 'relu')),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(128, 'relu')),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 4:
+            self.all_layers = [
+                ("with_adj", GATConv(512, attn_heads=4, activation =  "relu")),
+                ("x_only", Dropout(0.6)),
+                ("with_adj", GATConv(256, attn_heads=4, activation =  "relu")),
+                ("with_graphId", GlobalAttentionPool(128)),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(128, 'relu')),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(128, 'relu')),
+                ("x_only", Dropout(0.4)),
+                ("x_only", Dense(n_labels, 'softmax'))
+            ]
+        elif type == 5:
+            self.all_layers = [
+                ("with_adj", GATConv(512, attn_heads=4, activation =  "relu")),
+                ("x_only", Dropout(0.6)),
+                ("with_adj", GATConv(256, attn_heads=4, activation =  "relu")),
+                ("with_graphId", SortPool(5)),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(128, 'relu')),
+                ("x_only", Dropout(0.6)),
+                ("x_only", Dense(128, 'relu')),
+                ("x_only", Dropout(0.4)),
                 ("x_only", Dense(n_labels, 'softmax'))
             ]
         else:

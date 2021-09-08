@@ -26,20 +26,30 @@ class Benchmark:
             # (DiffusionGNN, 0), #BatchLoader
             # (DiffusionGNN, 1), #BatchLoader
             # (DiffusionGNN, 2), #BatchLoader
-            (ARMA, 0),
             (ARMA, 1),
-            (ARMA, 2),
-            (APPNP, 0),
-            (APPNP, 1),
-            (APPNP, 2),
+            (ARMA, 3),
+            # (ARMA, 4),
+            # (ARMA, 5),
+            # (ARMA, 6),
+            # (APPNP, 3),
+            (APPNP, 4),
+            # (APPNP, 5),
             (GAT, 0),
-            (GAT, 1),
-            (GAT, 2),
+            (GAT, 3),
+            # (GAT, 4),
+            # (GAT, 5),
             # (ChebGNN, 0),
             # (ChebGNN, 1),
             # (ChebGNN, 2),
             (GCN, 0),
             (GCN, 1),
+            (GCN, 2),
+            (GCN, 3),
+            (GCN, 4),
+            # (GCN, 5),
+            # (GCN, 6),
+            (GCN, 7),
+            # (GCN, 8)
         ]
         self.models = ["".join([model.__name__, "(", str(version), ",", str(self.n_labels), ")"]) for model, version in models_with_versions]
 
