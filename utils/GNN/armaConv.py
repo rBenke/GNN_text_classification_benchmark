@@ -19,61 +19,6 @@ class ARMA_model(Model):
                 ("with_graphId", GlobalSumPool()),
                 ("x_only", Dense(n_labels, 'softmax'))
             ]
-        elif type == 2:
-            self.all_layers = [
-                ("with_adj", ARMAConv(256, activation= "relu", order=2, iterations=2, dropout_rate=0.2)),
-                ("x_only", Dropout(0.2)),
-                ("with_adj", ARMAConv(128, activation= "relu",  order=2, iterations=2, dropout_rate=0.2)),
-                ("with_graphId", GlobalSumPool()),
-                ("x_only", Dropout(0.2)),
-                ("x_only", Dense(128, activation= 'relu')),
-                ("x_only", Dropout(0.2)),
-                ("x_only", Dense(n_labels, activation= 'softmax'))
-            ]
-        elif type == 3:
-            self.all_layers = [
-                ("with_adj", ARMAConv(256, activation= "relu", order=2, iterations=2, dropout_rate=0.5)),
-                ("x_only", Dropout(0.5)),
-                ("with_adj", ARMAConv(128, activation= "relu",  order=2, iterations=2, dropout_rate=0.5)),
-                ("with_graphId", GlobalSumPool()),
-                ("x_only", Dropout(0.5)),
-                ("x_only", Dense(128, activation= 'relu')),
-                ("x_only", Dropout(0.4)),
-                ("x_only", Dense(n_labels, activation= 'softmax'))
-            ]
-        elif type == 4:
-            self.all_layers = [
-                ("with_adj", ARMAConv(256, activation= "relu", order=2, iterations=6, dropout_rate=0.5)),
-                ("x_only", Dropout(0.5)),
-                ("with_adj", ARMAConv(128, activation= "relu",  order=2, iterations=6, dropout_rate=0.5)),
-                ("with_graphId", GlobalSumPool()),
-                ("x_only", Dropout(0.5)),
-                ("x_only", Dense(128, activation= 'relu')),
-                ("x_only", Dropout(0.4)),
-                ("x_only", Dense(n_labels, activation= 'softmax'))
-            ]
-        elif type == 5:
-            self.all_layers = [
-                ("with_adj", ARMAConv(256, activation= "relu", order=2, iterations=6, dropout_rate=0.5)),
-                ("x_only", Dropout(0.5)),
-                ("with_adj", ARMAConv(128, activation= "relu",  order=2, iterations=6, dropout_rate=0.5)),
-                ("with_graphId", GlobalAttnSumPool()),
-                ("x_only", Dropout(0.5)),
-                ("x_only", Dense(128, activation= 'relu')),
-                ("x_only", Dropout(0.4)),
-                ("x_only", Dense(n_labels, activation= 'softmax'))
-            ]
-        elif type == 6:
-            self.all_layers = [
-                ("with_adj", ARMAConv(256, activation= "relu", order=2, iterations=6, dropout_rate=0.5)),
-                ("x_only", Dropout(0.5)),
-                ("with_adj", ARMAConv(128, activation= "relu",  order=2, iterations=6, dropout_rate=0.5)),
-                ("with_graphId", GlobalAttentionPool(128)),
-                ("x_only", Dropout(0.5)),
-                ("x_only", Dense(128, activation= 'relu')),
-                ("x_only", Dropout(0.4)),
-                ("x_only", Dense(n_labels, activation= 'softmax'))
-            ]
         else:
             raise ValueError("Type has to be one of [0, 1, 2].")
 

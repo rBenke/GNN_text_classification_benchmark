@@ -23,33 +23,16 @@ class Benchmark:
         self.results_folder = results_folder
         self.n_labels = self.all_data.graphs[0].n_labels
         models_with_versions = [
-            # (DiffusionGNN, 0), #BatchLoader
-            # (DiffusionGNN, 1), #BatchLoader
-            # (DiffusionGNN, 2), #BatchLoader
-            (ARMA, 1),
-            (ARMA, 3),
-            # (ARMA, 4),
-            # (ARMA, 5),
-            # (ARMA, 6),
-            # (APPNP, 3),
-            (APPNP, 4),
-            # (APPNP, 5),
-            (GAT, 0),
-            (GAT, 3),
-            # (GAT, 4),
-            # (GAT, 5),
-            # (ChebGNN, 0),
-            # (ChebGNN, 1),
-            # (ChebGNN, 2),
             (GCN, 0),
             (GCN, 1),
             (GCN, 2),
-            (GCN, 3),
-            (GCN, 4),
-            # (GCN, 5),
-            # (GCN, 6),
-            (GCN, 7),
-            # (GCN, 8)
+            # (DiffusionGNN, 0), #BatchLoader
+            (ARMA, 1),
+            (APPNP, 0),
+            (APPNP, 1),
+            (GAT, 0),
+            # (ChebGNN, 0),
+
         ]
         self.models = ["".join([model.__name__, "(", str(version), ",", str(self.n_labels), ")"]) for model, version in models_with_versions]
 
@@ -116,8 +99,8 @@ class Benchmark:
             valid_dataset.apply(LayerPreprocess(preprocess_fn))
             test_dataset.apply(LayerPreprocess(preprocess_fn))
 
-        train_batch_gen = DisjointLoader(train_dataset, batch_size=BATCH_SIZE)
-        validation_batch_gen = DisjointLoader(valid_dataset, batch_size=BATCH_SIZE)
-        test_batch_gen = DisjointLoader(test_dataset, batch_size=BATCH_SIZE)
+        train_batch_gen = BatchLoader(train_dataset, batch_size=BATCH_SIZE)
+        validation_batch_gen = BatchLoader(valid_dataset, batch_size=BATCH_SIZE)
+        test_batch_gen = BatchLoader(test_dataset, batch_size=BATCH_SIZE)
 
         return train_batch_gen, validation_batch_gen, test_batch_gen

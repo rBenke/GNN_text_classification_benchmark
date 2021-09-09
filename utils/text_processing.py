@@ -96,5 +96,10 @@ class Preprocess:
 
     @staticmethod
     def lemmatize_tokens(text: List[str]) -> List[str]:
-        assert is_tokenized(text)
-        raise NotImplementedError
+        # import nltk
+        # nltk.download('wordnet')
+
+        from nltk.stem import WordNetLemmatizer
+        lemmatizer = WordNetLemmatizer()
+        lemmatized_tokens = [lemmatizer.lemmatize(token) for token in text]
+        return lemmatized_tokens

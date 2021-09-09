@@ -7,6 +7,7 @@ from sklearn.preprocessing import OneHotEncoder
 from helpers import parse_args
 from utils.text_processing import Preprocess
 from utils.text_graph_representation.graphOfWords import GraphOfWords
+from utils.text_graph_representation.bagOfWordsGraph import BagOfWordsGraph
 from utils.GNN.benchmark import Benchmark
 from helpers import load_dataset, prepare_test_idx_lst, print_results
 from config import *
@@ -21,7 +22,7 @@ if __name__ == "__main__":
 
     logging.info('Text preprocessing')
     preprocess = Preprocess()
-    preprocess_steps = ["remove_unicode","lower", "clean", "tokenize", "stopwordsNltk", "alpha_words_only"]
+    preprocess_steps = ["remove_unicode","lower", "clean", "tokenize", "stopwordsNltk", "alpha_words_only", "lemmatize"]
     all_data["content"] = preprocess.transform(all_data.content, preprocess_steps)
 
     logging.info('Transform labels to onehot encoding')
@@ -31,9 +32,11 @@ if __name__ == "__main__":
     all_data = pd.concat([all_data.content.reset_index(drop=False), pd.DataFrame(onehot_categories)], axis=1)
 
     logging.info('Loading token vectorization model')
-    graphOfWords = GraphOfWords()
+    # graphOfWords = GraphOfWords()
+    bagOfWordsGraph = BagOfWordsGraph(with_connections = False)
     logging.info('Text to graph transormation')
-    graphs_df = graphOfWords.transform(all_data)
+    # graphs_df = graphOfWords.transform(all_data)
+    graphs_df = bagOfWordsGraph.fit_transform(all_data)
 
     logging.info('Prepare train-test split or cross-validation')
     test_indexes = prepare_test_idx_lst(test_indexes, graphs_df)

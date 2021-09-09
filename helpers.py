@@ -105,6 +105,14 @@ def print_results(folder):
     print(results_grouped_df.to_markdown())
     return results_grouped_df
 
+def print_results_all_datasets(folder):
+    folders = os.listdir(folder)
+    for dataset_folder in folders:
+        logging.critical("")
+        logging.critical(dataset_folder.split('_')[0])
+        res = print_results(folder + dataset_folder + "/")
+        logging.critical("".join(["Best: ", str(max(res.test_acc))]))
+
 # reuters:          0.737
 # ohsumed:          0.45
 # 20newsgroups :    0.781

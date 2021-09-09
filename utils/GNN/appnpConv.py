@@ -22,38 +22,6 @@ class APPNP_model(Model):
                 ("with_graphId", GlobalSumPool()),
                 ("x_only", Dense(n_labels, 'softmax'))
             ]
-        elif type == 2:
-            self.all_layers = [
-                ("with_adj", APPNPConv(256, activation= "relu", mlp_hidden = [768, 512], dropout_rate=0.4)),
-                ("x_only", Dropout(0.4)),
-                ("with_adj", APPNPConv(128, activation= "relu", mlp_hidden = [256, 128], dropout_rate=0.4)),
-                ("with_graphId", GlobalSumPool()),
-                ("x_only", Dropout(0.2)),
-                ("x_only", Dense(128, activation= 'relu')),
-                ("x_only", Dropout(0.2)),
-                ("x_only", Dense(n_labels, activation= 'softmax'))
-            ]
-        elif type == 3:
-            self.all_layers = [
-                ("with_adj", APPNPConv(256, activation= "relu", mlp_hidden = [512, 256], dropout_rate=0.6)),
-                ("with_graphId", GlobalAttnSumPool()),
-                ("x_only", Dropout(0.4)),
-                ("x_only", Dense(n_labels, 'softmax'))
-            ]
-        elif type == 4:
-            self.all_layers = [
-                ("with_adj", APPNPConv(256, activation= "relu", mlp_hidden = [512, 256], dropout_rate=0.6)),
-                ("with_graphId", GlobalAttentionPool(200)),
-                ("x_only", Dropout(0.4)),
-                ("x_only", Dense(n_labels, 'softmax'))
-            ]
-        elif type == 5:
-            self.all_layers = [
-                ("with_adj", APPNPConv(256, activation= "relu", mlp_hidden = [512, 256], dropout_rate=0.6)),
-                ("with_graphId", SortPool(5)),
-                ("x_only", Dropout(0.4)),
-                ("x_only", Dense(n_labels, 'softmax'))
-            ]
         else:
             raise ValueError("Type has to be one of [0, 1, 2].")
 
