@@ -118,3 +118,7 @@ def print_results_all_datasets(folder):
 # 20newsgroups :    0.781
 # bbc :             0.976
 # bbcsport:         0.999
+
+# reuters:          0.735 (0.745)
+# bbc :             0.971 (0.978)
+# bbcsport:         0.987 (0.99)

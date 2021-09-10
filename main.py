@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     logging.info('Loading token vectorization model')
     # graphOfWords = GraphOfWords()
-    bagOfWordsGraph = BagOfWordsGraph(with_connections = False)
+    bagOfWordsGraph = BagOfWordsGraph(with_connections = True)
     logging.info('Text to graph transormation')
     # graphs_df = graphOfWords.transform(all_data)
     graphs_df = bagOfWordsGraph.fit_transform(all_data)

@@ -27,10 +27,10 @@ class BagOfWordsGraph:
                 bigrams = set(ngrams(text, 2))
                 edge_df = pd.DataFrame(bigrams, columns=["source", "target"])
                 G = nx.from_pandas_edgelist(edge_df)
-                adjacency_matrix = nx.adjacency_matrix(G, nodelist=selected_tokens).astype(np.float32)
+                node_list = [token for token in selected_tokens if token in text]
+                adjacency_matrix = nx.adjacency_matrix(G, nodelist=node_list).astype(np.float32)
             else:
                 adjacency_matrix = np.zeros((len(np.unique(text)), len(np.unique(text)))).astype(np.float32)
-
             # nodes
             text_vector = [0] * len(selected_tokens)
             for token in text:
@@ -39,7 +39,10 @@ class BagOfWordsGraph:
             text_vector = text_vector / np.sqrt(np.sum(text_vector ** 2))
             feature_matrix = np.diag(text_vector).astype(np.float32)
             feature_matrix = feature_matrix[feature_matrix.sum(axis=1) > 0, :]
-
+            assert adjacency_matrix.shape[0]==feature_matrix.shape[0]
+            # assert adjacency_matrix.shape[0]>0
+            if adjacency_matrix.shape[0]==0:
+                continue
             # create graph
             textGraph = Graph(x=feature_matrix, a=adjacency_matrix, y=label)
             graph_lst.append(textGraph)
