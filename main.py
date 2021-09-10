@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     logging.info('Text preprocessing')
     preprocess = Preprocess()
-    preprocess_steps = ["remove_unicode","lower", "clean", "tokenize", "stopwordsNltk", "alpha_words_only", "lemmatize"]
+    preprocess_steps = ["remove_unicode","lower", "clean", "tokenize", "stopwordsNltk", "alpha_words_only"]
     all_data["content"] = preprocess.transform(all_data.content, preprocess_steps)
 
     logging.info('Transform labels to onehot encoding')
@@ -32,11 +32,11 @@ if __name__ == "__main__":
     all_data = pd.concat([all_data.content.reset_index(drop=False), pd.DataFrame(onehot_categories)], axis=1)
 
     logging.info('Loading token vectorization model')
-    # graphOfWords = GraphOfWords()
-    bagOfWordsGraph = BagOfWordsGraph(with_connections = True)
+    graphOfWords = GraphOfWords()
+    # bagOfWordsGraph = BagOfWordsGraph(with_connections = True)
     logging.info('Text to graph transormation')
-    # graphs_df = graphOfWords.transform(all_data)
-    graphs_df = bagOfWordsGraph.fit_transform(all_data)
+    graphs_df = graphOfWords.transform(all_data, with_connections = False)
+    # graphs_df = bagOfWordsGraph.fit_transform(all_data)
 
     logging.info('Prepare train-test split or cross-validation')
     test_indexes = prepare_test_idx_lst(test_indexes, graphs_df)

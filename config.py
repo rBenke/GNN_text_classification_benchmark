@@ -1,8 +1,8 @@
 import logging
 
-EXP_VERSION = "BoW_with_connections"
-W2V_VERSION = 'None'
-FEATURE_SIZE = 2000 # node feature size (BoW, tf-idf)
+EXP_VERSION = "W2V_without_connections"
+W2V_VERSION = 'word2vec-google-news-300'
+FEATURE_SIZE = None # node feature size (BoW, tf-idf)
 USE_GPU = True
 TF_FIT_VERBOSE = 0
 LOGGING_LEVEL = logging.INFO

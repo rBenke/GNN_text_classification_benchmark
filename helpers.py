@@ -113,12 +113,14 @@ def print_results_all_datasets(folder):
         res = print_results(folder + dataset_folder + "/")
         logging.critical("".join(["Best: ", str(max(res.test_acc))]))
 
+# Best
 # reuters:          0.737
 # ohsumed:          0.45
 # 20newsgroups :    0.781
 # bbc :             0.976
 # bbcsport:         0.999
 
+# BoW-GoW with connections (without connections)
 # reuters:          0.735 (0.745)
 # bbc :             0.971 (0.978)
 # bbcsport:         0.987 (0.99)
