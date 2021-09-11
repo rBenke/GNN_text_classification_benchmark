@@ -1,6 +1,6 @@
 import logging
 
-EXP_VERSION = "W2V_without_connections"
+EXP_VERSION = "W2V_GoW"
 W2V_VERSION = 'word2vec-google-news-300'
 FEATURE_SIZE = None # node feature size (BoW, tf-idf)
 USE_GPU = True

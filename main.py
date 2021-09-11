@@ -35,7 +35,7 @@ if __name__ == "__main__":
     graphOfWords = GraphOfWords()
     # bagOfWordsGraph = BagOfWordsGraph(with_connections = True)
     logging.info('Text to graph transormation')
-    graphs_df = graphOfWords.transform(all_data, with_connections = False)
+    graphs_df = graphOfWords.transform(all_data, with_connections = True)
     # graphs_df = bagOfWordsGraph.fit_transform(all_data)
 
     logging.info('Prepare train-test split or cross-validation')

@@ -23,13 +23,13 @@ class Benchmark:
         self.results_folder = results_folder
         self.n_labels = self.all_data.graphs[0].n_labels
         models_with_versions = [
-            (GCN, 0),
-            (GCN, 1),
-            # (GCN, 2),
+            # (GCN, 0),
+            # (GCN, 1),
+            (GCN, 2),
             # (DiffusionGNN, 0), #BatchLoader
             (ARMA, 1),
             (APPNP, 0),
-            (APPNP, 1),
+            # (APPNP, 1),
             (GAT, 0),
             # (ChebGNN, 0),
 
