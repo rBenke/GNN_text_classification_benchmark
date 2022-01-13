@@ -1,0 +1,6 @@
+ - refactor repository; split main into preprocess, graph_builder, train_evaluate
+ - try apache airflow
+ - implement TextGCN
+ - add flake8 and mypy "https://www.youtube.com/watch?v=DhUpxWjOhME&ab_channel=mCoding"
+ - write pytest
+ - add tox and tox-gh-extension

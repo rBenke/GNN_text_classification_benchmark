@@ -1,0 +1,28 @@
+
+# Best
+# reuters:          0.737 (APPNP1)
+# ohsumed:          0.45 (APPNP2)
+# 20newsgroups :    0.781 (APPNP1)
+# bbc :             0.976 (GAT2)
+# bbcsport:         0.992 (GCN 1)
+
+# BoW-GoW with connections (without connections)
+# reuters:          0.735 (0.745)
+# bbc :             0.971 (0.978)
+# bbcsport:         0.987 (0.99)
+
+# W2V-GoW with connectoins (without connections)
+#                    GCN                GAT           ARMA              APPNP
+# reuters:          0.711(0.706)    0.727(0.729)   0.719(0.718)      0.705(0.696)
+# ohsumed:          0.373(0.377)    0.408(0.417)   0.388(-----)      0.38(0.37)
+# 20newsgroups :    ---------------------------------------------------------------
+# bbc :             0.969(0.97)     0.973(0.97)    0.973(0.97)       0.964(0.964)
+# bbcsport:         0.987(0.974)    0.99(0.985)    0.969(0.966)      0.959(0.965)
+
+# W2V-GoW best architectures with connectoins (without connections, random connections p=0.2)
+#                    BEST
+# reuters:          0.73(0.728, 0.726)
+# ohsumed:          0.448(0.444, 0.429)
+# 20newsgroups :    ---------------
+# bbc:              0.969(0.975, 0.97)
+# bbcsport :        0.992(0.99, 0.988)
