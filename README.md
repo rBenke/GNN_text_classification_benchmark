@@ -1,5 +1,6 @@
 # GNN text classification benchmark
 
+
 ## The list of implemented GNN layers
  - **APPNPConv** - https://arxiv.org/abs/1810.05997
  - **ARMAConv** - https://arxiv.org/abs/1901.01343
